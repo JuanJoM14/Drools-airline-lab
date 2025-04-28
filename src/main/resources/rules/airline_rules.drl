@@ -1,0 +1,36 @@
+package rules
+
+import com.UdeA.Airline.model.Passenger
+import com.UdeA.Airline.model.Flight
+import com.UdeA.Airline.model.Luggage
+import com.UdeA.Airline.model.BookingResponse
+
+// Regla 1: Check-in prioritario para mayores de 65
+rule "Priority Check-In for Seniors"
+when
+    $passenger : Passenger(age > 65)
+    $response : BookingResponse()
+then
+    $response.setPriorityCheckIn(true);
+    $response.setMessage("Check-in prioritario otorgado por edad.");
+end
+
+// Regla 2: Upgrade a clase ejecutiva para miembros Platinum
+rule "Upgrade for Platinum Members"
+when
+    $passenger : Passenger(membershipStatus == "Platinum")
+    $response : BookingResponse()
+then
+    $response.setUpgradedToBusinessClass(true);
+    $response.setMessage("Upgrade a clase ejecutiva por ser miembro Platinum.");
+end
+
+// Regla 3: Descuento por equipaje liviano (<15kg)
+rule "Discount for Light Luggage"
+when
+    $luggage : Luggage(weightKg < 15)
+    $response : BookingResponse()
+then
+    $response.setDiscountPercentage(10.0);
+    $response.setMessage("Descuento del 10% por equipaje liviano.");
+end
