@@ -8,6 +8,7 @@ import com.UdeA.Airline.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://127.0.0.1:8080")
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {

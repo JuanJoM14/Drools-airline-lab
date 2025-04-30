@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario Vuelo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+    <h1>Formulario de Información de Vuelo</h1>
+    <form id="flightForm">
+        <fieldset>
+        <legend>Pasajero</legend>
+        <label>Nombre:
+            <input type="text" name="name" required />
+        </label>
+        <label>Edad:
+            <input type="number" name="age" required />
+        </label>
+        <label>Status de Membresía:
+        <select name="membershipStatus">
+            <option value="Basic">Basic</option>
+            <option value="Gold">Gold</option>
+            <option value="Platinum">Platinum</option>
+        </select>
+        </label>
+        <label>Viaja con niños:
+            <select name="travelingWithChildren">
+            <option value="false">No</option>
+            <option value="true">Sí</option>
+            </select>
+        </label>
+        <label>Preferencia de asiento:
+            <select name="seatPreference">
+            <option value="Any">Cualquiera</option>
+            <option value="Window">Ventana</option>
+            <option value="Aisle">Pasillo</option>
+            </select>
+        </label>
+        <label>Puntos de fidelidad:
+            <input type="number" name="loyaltyPoints" required />
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Vuelo</legend>
+        <label>Número de vuelo:
+            <input type="text" name="flightNumber" required />
+        </label>
+        <label>Duración (horas):
+            <input type="number" name="durationHours" required />
+        </label>
+        <label>¿Está demorado?
+            <select name="delayed">
+            <option value="false">No</option>
+            <option value="true">Sí</option>
+            </select>
+        </label>
+        <label>¿Hay asientos de emergencia disponibles?
+            <select name="emergencySeatsAvailable">
+            <option value="false">No</option>
+            <option value="true">Sí</option>
+            </select>
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Equipaje</legend>
+        <label>Peso (kg):
+            <input type="number" name="weightKg" required />
+        </label>
+    </fieldset>
+
+    <button type="submit">Enviar</button>
+    </form>
+
+    <pre id="output"></pre>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
