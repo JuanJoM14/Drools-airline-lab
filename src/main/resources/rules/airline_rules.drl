@@ -34,3 +34,76 @@ then
     $response.setDiscountPercentage(10.0);
     $response.setMessage("Descuento del 10% por equipaje liviano.");
 end
+
+// Regla 4: Denegar ascenso por equipaje con sobrepeso (>23kg)
+rule "Deny Upgrade for Overweight Luggage"
+when
+    $luggage : Luggage(weightKg > 23)
+    $response : BookingResponse()
+then
+    $response.setEligibleForUpgrade(false);
+    $response.setMessage("No elegible para ascenso debido a equipaje con sobrepeso.");
+end
+
+// Regla 5: Asignar asiento de salida de emergencia a adultos jóvenes
+rule "Assign Emergency Exit Seat to Young Adults"
+when
+    $passenger : Passenger(age >= 18 && age <= 40, seatPreference == "Any")
+    $flight : Flight(emergencySeatsAvailable == true)
+    $response : BookingResponse()
+then
+    $response.setAssignedEmergencyExitSeat(true);
+    $response.setMessage("Asiento de salida de emergencia asignado.");
+end
+
+// Regla 6: Compensación por retrasos extremos (>180 minutos)
+rule "Compensation for Extreme Delays"
+when
+    $flight : Flight(delayed == true, durationHours > 3)
+    $response : BookingResponse()
+then
+    $response.setCompensationAmount(200.0);
+    $response.setMessage("Compensación de $200 por retraso extremo.");
+end
+
+// Regla 7: Puntos de lealtad extra para vuelos largos
+rule "Extra Loyalty Points for Long Flights"
+when
+    $passenger : Passenger(membershipStatus != "Basic")
+    $flight : Flight(durationHours > 5)
+    $response : BookingResponse()
+then
+    $response.setExtraLoyaltyPoints(500);
+    $response.setMessage("500 puntos de lealtad otorgados por vuelo largo.");
+end
+
+// Regla 8: Restringir equipaje en vuelos cortos
+rule "Restrict Luggage on Short Flights"
+when
+    $luggage : Luggage(weightKg > 15)
+    $flight : Flight(durationHours < 2)
+    $response : BookingResponse()
+then
+    $response.setLuggageRestricted(true);
+    $response.setMessage("Equipaje no permitido en vuelos cortos.");
+end
+
+// Regla 9: Acceso al salón VIP para miembros Platinum
+rule "VIP Lounge Access for Platinum Members"
+when
+    $passenger : Passenger(membershipStatus == "Platinum")
+    $response : BookingResponse()
+then
+    $response.setVipLoungeAccess(true);
+    $response.setMessage("Acceso al salón VIP otorgado.");
+end
+
+// Regla 10: Asignar asiento preferencial para familias
+rule "Preferential Seat for Families"
+when
+    $passenger : Passenger(travelingWithChildren == true, seatPreference == "Any")
+    $response : BookingResponse()
+then
+    $response.setFamilyPreferentialSeat(true);
+    $response.setMessage("Asiento preferencial asignado para familias.");
+end

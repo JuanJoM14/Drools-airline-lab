@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Passenger {
+
     private String name;                    // Nombre del pasajero
     private int age;                        // Edad del pasajero
     private String membershipStatus;        // Nivel de membresía: Basic, Gold, Platinum
